@@ -57,10 +57,10 @@ Install Flutter: https://docs.flutter.dev/install
 
 Clone app:
 ```bash
-git clone https://github.com/
+git clone https://github.com/Cariqa/connect-playground
 cd project
 flutter pub get
-flutter run -d chrome --dart-define-from-file=.env    # or -d ios / -d android
+flutter run -d chrome --dart-define-from-file=.env
 ```
 
 
