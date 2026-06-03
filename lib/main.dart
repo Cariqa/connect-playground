@@ -45,7 +45,7 @@ String? paymentMethodId;
 
 Map<String, String> get authorizationBearerConnectTokenHeader => {'Authorization': 'Bearer $connectApiKey'};
 
-const testUrl = 'dev.connect.cariqa.com/api/v1';
+const devUrl = 'dev.connect.cariqa.com/api/v1';
 const prodUrl = 'connect.cariqa.com/api/v1';
 
 const docsUrl = 'https://docs.cariqa.com';

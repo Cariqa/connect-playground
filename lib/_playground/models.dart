@@ -23,8 +23,8 @@ enum AppTab {
 }
 
 enum RunMode {
-  test(Color(0xFFF59E0B), Color(0xFFFAF0BE), testUrl),
-  live(Color(0xFF27BC24), Color(0xFFC5F0DA), prodUrl);
+  dev(Color(0xFFF59E0B), Color(0xFFFAF0BE), devUrl),
+  prod(Color(0xFF27BC24), Color(0xFFC5F0DA), prodUrl);
 
   final Color colorPrimary;
   final Color colorSecondary;

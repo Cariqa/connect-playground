@@ -118,8 +118,10 @@ class ApiClient {
       case Exception400.errorCode:
         throw Exception400(
           body: response.body,
-          status: parsedResponse['status'],
-          errorMessage: _getErrorMessage(parsedResponse: parsedResponse, response: response),
+        );
+      case Exception402.errorCode:
+        throw Exception402(
+          body: parsedResponse,
         );
 
       case FetchDataException.errorCode:
@@ -204,25 +206,24 @@ class ApiClient {
   }
 
   String getUriLog(Uri uri) => '${uri.scheme}://${uri.host}${uri.path}';
-
-  String? _getErrorMessage({required dynamic parsedResponse, required http.Response response}) {
-    return parsedResponse['detail'];
-  }
 }
 
 class Exception400 implements Exception {
-  final String? status;
-  final String? errorMessageTitle;
-  final String? errorMessage;
-  final String? body;
+  final dynamic body;
   const Exception400({
-    this.status,
-    this.errorMessageTitle,
-    this.errorMessage,
     this.body,
   });
 
   static const int errorCode = 400;
+}
+
+class Exception402 implements Exception {
+  final dynamic body;
+  const Exception402({
+    this.body,
+  });
+
+  static const int errorCode = 402;
 }
 
 class FetchDataException implements Exception {
