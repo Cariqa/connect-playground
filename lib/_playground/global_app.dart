@@ -180,9 +180,9 @@ class _GlobalAppState extends State<GlobalApp> {
                                 child: isMobile
                                     ? SizedBox()
                                     : Text(
-                                        runMode == RunMode.test
-                                            ? 'You\'re using test mode. No real transactions will be processed.'
-                                            : 'You\'re using live mode. Real data will be used.',
+                                        runMode == RunMode.dev
+                                            ? 'You\'re using development mode — your place to experiment with Cariqa Connect'
+                                            : 'You\'re using production mode. Real data will be used.',
                                         style: TextStyle(fontSize: 14),
                                       ),
                               ),

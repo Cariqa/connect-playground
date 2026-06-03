@@ -41,7 +41,7 @@ Future<void> addAndroidPaymentMethod(BuildContext context, String setupIntentCli
         label: 'Authorisation for Cariqa Connect Playground',
         merchantCountryCode: 'DE',
         amount: '0.00',
-        testEnv: runMode == RunMode.test,
+        testEnv: runMode == RunMode.dev,
       ),
       billingDetailsCollectionConfiguration:
           const BillingDetailsCollectionConfiguration(address: AddressCollectionMode.never),

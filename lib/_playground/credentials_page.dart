@@ -24,7 +24,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      connectApiDomainController.text = RunMode.test.url;
+      connectApiDomainController.text = RunMode.dev.url;
 
       getCredentials();
 
@@ -37,10 +37,10 @@ class _CredentialsPageState extends State<CredentialsPage> {
   }
 
   void getCredentials() {
-    if (runMode == RunMode.test) {
+    if (runMode == RunMode.dev) {
       connectApiKeyController.text =
           localDb.getString('connect-api-key') ?? const String.fromEnvironment('CONNECT_API_KEY');
-      connectApiDomainController.text = RunMode.test.url;
+      connectApiDomainController.text = RunMode.dev.url;
 
       stripePublishableKeyController.text =
           localDb.getString('stripe-publishable-key') ?? const String.fromEnvironment('STRIPE_PUBLISHABLE_KEY');
@@ -210,7 +210,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
             ),
             SizedBox(height: 22),
           ],
-          if (runMode == RunMode.test)
+          if (runMode == RunMode.dev)
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(
@@ -221,7 +221,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                     Text('* ', style: TextStyle(fontSize: 13)),
                     Flexible(
                       child: Text(
-                        'Test mode keeps your credentials saved, so you don\'t have to re-enter them after a restart.',
+                        'Dev mode keeps your credentials saved, so you don\'t have to re-enter them after a restart.',
                         style: TextStyle(fontSize: 13),
                       ),
                     ),
@@ -238,7 +238,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                   applyStripeSettings(stripePublishableKey: stripePublishableKeyController.text);
                 }
                 if (kIsWeb) appendGoogleMapScriptHtml();
-                if (runMode == RunMode.test) {
+                if (runMode == RunMode.dev) {
                   localDb.setString('connect-api-key', connectApiKeyController.text);
                   localDb.setString('stripe-publishable-key', stripePublishableKeyController.text);
                   localDb.setString('google-maps-key', googleMapsKeyController.text);

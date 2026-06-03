@@ -33,7 +33,7 @@ class _GetUnpaidSessionsState extends State<GetUnpaidSessions> {
 
         final debts = res['results'] as List<dynamic>;
         if (debts.isNotEmpty) {
-          final firstDebtPaymentIntent = debts[0]['client_secret'];
+          final firstDebtPaymentIntent = debts[0]['payment_intent_client_secret'];
           await Stripe.instance.confirmPayment(
             paymentIntentClientSecret: firstDebtPaymentIntent,
             data: PaymentMethodParams.cardFromMethodId(

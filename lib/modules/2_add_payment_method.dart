@@ -38,15 +38,15 @@ class _AddPaymentMethodState extends State<AddPaymentMethod> {
 
         // Web:
         if (kIsWeb) {
-          MOBILE_or_WEB_PAYMENTS.addPaymentMethod(context, res['client_secret']);
+          MOBILE_or_WEB_PAYMENTS.addPaymentMethod(context, res['setup_intent_client_secret']);
         }
 
         // Mobile:
         if (kIsWeb == false && Platform.isIOS) {
-          MOBILE_or_WEB_PAYMENTS.addIosPaymentMethod(context, res['client_secret']);
+          MOBILE_or_WEB_PAYMENTS.addIosPaymentMethod(context, res['setup_intent_client_secret']);
         }
         if (kIsWeb == false && Platform.isAndroid) {
-          MOBILE_or_WEB_PAYMENTS.addAndroidPaymentMethod(context, res['client_secret']);
+          MOBILE_or_WEB_PAYMENTS.addAndroidPaymentMethod(context, res['setup_intent_client_secret']);
         }
       },
       onPathChange: _playgroundEditorPathChange,

@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 late SharedPreferences localDb;
 String? appVersion;
 bool isMobile = false;
-RunMode runMode = RunMode.test;
+RunMode runMode = RunMode.dev;
 late final http.Client globalHttpClient;
 
 class Playground {

@@ -39,15 +39,18 @@ class _StartChargingState extends State<StartCharging> {
           );
           sessionId = res['id'];
         } catch (error) {
-          if (error is Exception400) {
-            sessionId = jsonDecode(error.body.toString())['active_charging_session_id'];
-            final paymentIntentClientSecret = jsonDecode(error.body.toString())['client_secret'];
+          if (error is Exception402) {
+            final apiError = error.body?['error'];
 
-            if (paymentIntentClientSecret != null) {
-              MOBILE_or_WEB_PAYMENTS.confirmPayment(
-                paymentIntentClientSecret: paymentIntentClientSecret,
-                paymentMethodId: paymentMethodId!,
-              );
+            if (apiError?['type'] == 'pre_authorization_failed') {
+              final paymentIntentClientSecret = apiError['payment_intent_client_secret'];
+
+              if (paymentIntentClientSecret != null) {
+                MOBILE_or_WEB_PAYMENTS.confirmPayment(
+                  paymentIntentClientSecret: paymentIntentClientSecret,
+                  paymentMethodId: paymentMethodId!,
+                );
+              }
             }
           }
         }
