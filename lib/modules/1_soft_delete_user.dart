@@ -3,33 +3,29 @@ import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class DeletePaymentMethod extends StatefulWidget {
-  const DeletePaymentMethod({super.key});
+class SoftDeleteUser extends StatefulWidget {
+  const SoftDeleteUser({super.key});
 
   @override
-  State<DeletePaymentMethod> createState() => _DeletePaymentMethodState();
+  State<SoftDeleteUser> createState() => _SoftDeleteUserState();
 }
 
-class _DeletePaymentMethodState extends State<DeletePaymentMethod> {
+class _SoftDeleteUserState extends State<SoftDeleteUser> {
   @override
   Widget build(BuildContext context) {
-    final url = '/users/$userId/payment-methods/$paymentMethodId';
+    final url = '/users/$userId/';
     return ModuleWidget(
       urlName: url,
       apiType: ApiType.delete,
       pathParams: () => {
         'userId': '',
-        'paymentMethodId': '',
       },
       requestParams: () => {},
-      getApiClient: (apiClient, params) async {
-        final res = await apiClient.delete(
+      getApiClient: (apiClient, requestParams) async {
+        await apiClient.delete(
           url: url,
-          params: params,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
-
-        paymentMethodId = res['results']?[0]?['id'];
       },
       onPathChange: _playgroundEditorPathChange,
     );

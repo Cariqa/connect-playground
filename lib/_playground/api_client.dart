@@ -83,8 +83,8 @@ class ApiClient {
       req.headers.addAll(_setupHeaders(addHeaders));
       if (body != null) req.body = body;
 
-      final streamed = await globalHttpClient.send(req).timeout(const Duration(seconds: 60));
-      response = await http.Response.fromStream(streamed);
+      final streamed = await globalHttpClient.send(req);
+      response = await http.Response.fromStream(streamed).timeout(const Duration(seconds: 120));
 
       responseJson = _response(response);
 
@@ -116,13 +116,15 @@ class ApiClient {
       case 204:
         return parsedResponse;
       case Exception400.errorCode:
-        throw Exception400(
-          body: response.body,
-        );
+        throw Exception400(body: response.body);
       case Exception402.errorCode:
-        throw Exception402(
-          body: parsedResponse,
-        );
+        throw Exception402(body: parsedResponse);
+      case Exception404.errorCode:
+        throw Exception404(body: parsedResponse);
+      case Exception409.errorCode:
+        throw Exception409(body: parsedResponse);
+      case Exception424.errorCode:
+        throw Exception424(body: parsedResponse);
 
       case FetchDataException.errorCode:
       default:
@@ -219,11 +221,32 @@ class Exception400 implements Exception {
 
 class Exception402 implements Exception {
   final dynamic body;
-  const Exception402({
-    this.body,
-  });
-
+  const Exception402({this.body});
   static const int errorCode = 402;
+}
+
+class Exception404 implements Exception {
+  final dynamic body;
+  const Exception404({this.body});
+  static const int errorCode = 404;
+}
+
+class Exception409 implements Exception {
+  final dynamic body;
+  const Exception409({this.body});
+  static const int errorCode = 409;
+}
+
+class Exception424 implements Exception {
+  final dynamic body;
+  const Exception424({this.body});
+  static const int errorCode = 424;
+}
+
+class Exception500 implements Exception {
+  final dynamic body;
+  const Exception500({this.body});
+  static const int errorCode = 500;
 }
 
 class FetchDataException implements Exception {

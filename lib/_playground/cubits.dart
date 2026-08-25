@@ -11,12 +11,12 @@ class PlaygroundCubit extends Cubit<PlaygroundState> {
             themeMode: null,
             isCredentialsSet: false,
             plainEditor: false,
+            appChapter: AppChapter.user,
           ),
         );
 
-  void setTab(AppTab tab) {
-    emit(state.copyWith(appTab: tab));
-  }
+  void setTab(AppTab tab) => emit(state.copyWith(appTab: tab));
+  void setChapter(AppChapter chapter) => emit(state.copyWith(appChapter: chapter));
 
   void getTheme() {
     final theme = localDb.getString('theme');
@@ -41,12 +41,14 @@ class PlaygroundCubit extends Cubit<PlaygroundState> {
 
 class PlaygroundState {
   final AppTab appTab;
+  final AppChapter appChapter;
   final ThemeMode? themeMode;
   final bool isCredentialsSet;
   final bool plainEditor;
 
   PlaygroundState({
     required this.appTab,
+    required this.appChapter,
     required this.themeMode,
     required this.isCredentialsSet,
     required this.plainEditor,
@@ -54,12 +56,14 @@ class PlaygroundState {
 
   PlaygroundState copyWith({
     AppTab? appTab,
+    AppChapter? appChapter,
     ThemeMode? themeMode,
     bool? isCredentialsSet,
     bool? plainEditor,
   }) {
     return PlaygroundState(
       appTab: appTab ?? this.appTab,
+      appChapter: appChapter ?? this.appChapter,
       themeMode: themeMode ?? this.themeMode,
       isCredentialsSet: isCredentialsSet ?? this.isCredentialsSet,
       plainEditor: plainEditor ?? this.plainEditor,

@@ -22,10 +22,10 @@ class CreateUser extends StatelessWidget {
           'external_id': 'my-external-id-1',
         }
       },
-      getApiClient: (apiClient, params) async {
+      getApiClient: (apiClient, requestParams) async {
         final user = await apiClient.post(
           url: url,
-          body: jsonEncode(params),
+          body: jsonEncode(requestParams),
           addHeaders: authorizationBearerConnectTokenHeader,
         );
         userId = user['id'];

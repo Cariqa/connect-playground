@@ -17,8 +17,8 @@ class GetStationsList extends StatelessWidget {
       requestParams: () => {
         'latitude': '52.51',
         'longitude': '13.45',
-        'distance': '10000',
-        'page_size': '20',
+        'distance': '500',
+        'page_size': '10',
         'page': '1',
         'max_price': '',
         'only_available': 'false',
@@ -27,10 +27,10 @@ class GetStationsList extends StatelessWidget {
         'operators': [],
         'power_groups': [],
       },
-      getApiClient: (apiClient, queryParams) async {
+      getApiClient: (apiClient, requestParams) async {
         final response = await apiClient.get(
           url: url,
-          params: queryParams,
+          params: requestParams,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
 

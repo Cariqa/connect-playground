@@ -69,7 +69,7 @@ class _JsonEditorPlainState extends State<JsonEditorPlain> {
               padding: const EdgeInsets.all(4),
               child: TextField(
                 controller: _controller,
-                maxLines: 14,
+                maxLines: 100,
                 minLines: 6,
                 style: TextStyle(
                   fontSize: 13,

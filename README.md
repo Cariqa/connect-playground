@@ -14,6 +14,8 @@ Demonstrates how to authenticate, call endpoints + Stripe integration, written i
 
 Not using Flutter? The integration **flow** is the same on every platform — only the Stripe SDK calls differ. Use this as a reference for the flow, then swap in the [Stripe SDK for your platform](https://docs.cariqa.com/payments-frontend-setup).
 
+> [!NOTE]
+> This Playground is a demo tool for trying out Connect API flows end-to-end without building anything on your side, combining backend and frontend duties into one environment for simplicity. In a real implementation, only your backend should interact with the Connect API, while your frontend integrates the Stripe SDK and communicates with your backend.
 
 **Live playground:** [play.connect.cariqa.com](https://play.connect.cariqa.com)
  
@@ -25,7 +27,8 @@ Not using Flutter? The integration **flow** is the same on every platform — on
 - [`lib/main.dart`](lib/main.dart) — app entry point
 - [`lib/modules/`](lib/modules/) — minimal usage example per Connect API endpoint
 - [`lib/payments_initialization.dart`](lib/payments_initialization.dart) — Stripe SDK initialization
-- [`lib/payments_mobile.dart`](lib/payments_mobile.dart) — Stripe SDK integration for Android and iOS
+- [`lib/payments_android.dart`](lib/payments_android.dart) — Stripe SDK integration for Android
+- [`lib/payments_ios.dart`](lib/payments_ios.dart) — Stripe SDK integration for iOS
 - [`lib/payments_web.dart`](lib/payments_web.dart) — Stripe SDK integration for Web
 
 **Platform config**

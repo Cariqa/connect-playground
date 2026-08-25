@@ -1,37 +1,36 @@
+import 'dart:convert';
+
 import 'package:connect_reference_client/_playground/models.dart';
 import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class GetPaymentMethods extends StatefulWidget {
-  const GetPaymentMethods({super.key});
+class SetPaymentMethodDefault extends StatefulWidget {
+  const SetPaymentMethodDefault({super.key});
 
   @override
-  State<GetPaymentMethods> createState() => _GetPaymentMethodsState();
+  State<SetPaymentMethodDefault> createState() => _SetPaymentMethodDefaultState();
 }
 
-class _GetPaymentMethodsState extends State<GetPaymentMethods> {
+class _SetPaymentMethodDefaultState extends State<SetPaymentMethodDefault> {
   @override
   Widget build(BuildContext context) {
-    final url = '/users/$userId/payment-methods/';
+    final url = '/users/$userId/payment-methods/$paymentMethodId/default/';
     return ModuleWidget(
       urlName: url,
-      apiType: ApiType.get,
+      apiType: ApiType.post,
+      reqType: ReqType.body,
       pathParams: () => {
         'userId': '',
+        'paymentMethodId': '',
       },
-      requestParams: () => {
-        'page_size': '20',
-        'page': '1',
-      },
+      requestParams: () => {},
       getApiClient: (apiClient, requestParams) async {
-        final res = await apiClient.get(
+        await apiClient.post(
           url: url,
-          params: requestParams,
+          body: jsonEncode(requestParams),
           addHeaders: authorizationBearerConnectTokenHeader,
         );
-
-        paymentMethodId = res['results']?[0]?['id'];
       },
       onPathChange: _playgroundEditorPathChange,
     );
@@ -40,6 +39,10 @@ class _GetPaymentMethodsState extends State<GetPaymentMethods> {
   void _playgroundEditorPathChange(Map<String, dynamic> pathParams) {
     final newPathUser = pathParams['userId'] ?? '';
     if (newPathUser != '') userId = newPathUser;
+    setState(() {});
+
+    final newPathPaymentMethodId = pathParams['paymentMethodId'] ?? '';
+    if (newPathPaymentMethodId != '') paymentMethodId = newPathPaymentMethodId;
     setState(() {});
   }
 }

@@ -3,30 +3,35 @@ import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class GetChargingSession extends StatefulWidget {
-  const GetChargingSession({super.key});
+class GetInvoices extends StatefulWidget {
+  const GetInvoices({super.key});
 
   @override
-  State<GetChargingSession> createState() => _GetChargingSessionState();
+  State<GetInvoices> createState() => _GetInvoicesState();
 }
 
-class _GetChargingSessionState extends State<GetChargingSession> {
+class _GetInvoicesState extends State<GetInvoices> {
   @override
   Widget build(BuildContext context) {
-    final url = '/users/$userId/charging-sessions/$sessionId/';
+    final url = '/users/$userId/invoices/';
     return ModuleWidget(
       urlName: url,
       apiType: ApiType.get,
       pathParams: () => {
         'userId': '',
-        'sessionId': '',
       },
-      requestParams: () => {},
-      getApiClient: (apiClient, params) async {
+      requestParams: () => {
+        "page_size": "10",
+        "page": "1",
+      },
+      getApiClient: (apiClient, requestParams) async {
         await apiClient.get(
           url: url,
+          params: requestParams,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
+
+        setState(() {});
       },
       onPathChange: _playgroundEditorPathChange,
     );
@@ -35,9 +40,6 @@ class _GetChargingSessionState extends State<GetChargingSession> {
   void _playgroundEditorPathChange(Map<String, dynamic> pathParams) {
     final newPathUser = pathParams['userId'] ?? '';
     if (newPathUser != '') userId = newPathUser;
-
-    final newSessionId = pathParams['sessionId'] ?? '';
-    if (newSessionId != '') sessionId = newSessionId;
     setState(() {});
   }
 }

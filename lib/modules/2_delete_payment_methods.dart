@@ -3,32 +3,33 @@ import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class StopCharging extends StatefulWidget {
-  const StopCharging({super.key});
+class DeletePaymentMethod extends StatefulWidget {
+  const DeletePaymentMethod({super.key});
 
   @override
-  State<StopCharging> createState() => _StopChargingState();
+  State<DeletePaymentMethod> createState() => _DeletePaymentMethodState();
 }
 
-class _StopChargingState extends State<StopCharging> {
+class _DeletePaymentMethodState extends State<DeletePaymentMethod> {
   @override
   Widget build(BuildContext context) {
-    final url = '/users/$userId/charging/stop/$sessionId/';
+    final url = '/users/$userId/payment-methods/$paymentMethodId';
     return ModuleWidget(
       urlName: url,
-      apiType: ApiType.post,
-      reqType: ReqType.body,
+      apiType: ApiType.delete,
       pathParams: () => {
         'userId': '',
-        'sessionId': '',
+        'paymentMethodId': '',
       },
       requestParams: () => {},
-      getApiClient: (apiClient, params) async {
-        await apiClient.post(
+      getApiClient: (apiClient, requestParams) async {
+        final res = await apiClient.delete(
           url: url,
-          body: null,
+          params: requestParams,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
+
+        paymentMethodId = res['results']?[0]?['id'];
       },
       onPathChange: _playgroundEditorPathChange,
     );
@@ -37,9 +38,6 @@ class _StopChargingState extends State<StopCharging> {
   void _playgroundEditorPathChange(Map<String, dynamic> pathParams) {
     final newPathUser = pathParams['userId'] ?? '';
     if (newPathUser != '') userId = newPathUser;
-
-    final newSessionId = pathParams['sessionId'] ?? '';
-    if (newSessionId != '') sessionId = newSessionId;
     setState(() {});
   }
 }
