@@ -119,7 +119,7 @@ class _StartChargingState extends State<StartCharging> {
 
             switch (apiError?['type']) {
               case 'unexpected_error':
-              // An unexpected internal error occurred while processing the stop charging request.
+              // An unexpected internal error occurred while processing the start charging request.
             }
           }
         }
