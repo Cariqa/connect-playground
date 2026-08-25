@@ -161,33 +161,41 @@ class _GlobalAppState extends State<GlobalApp> {
                               height: 28,
                               color: Theme.of(context).appBarTheme.titleTextStyle?.color,
                             ),
-                            SizedBox(width: 4),
-                            if (isCredentialsSet) ...[
+                            SizedBox(width: 20),
+                            if (isCredentialsSet)
                               Container(
-                                margin: const EdgeInsets.only(left: 12),
-                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: runMode.colorPrimary,
-                                  borderRadius: BorderRadius.circular(4),
+                                  color: runMode.colorPrimary.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
-                                child: Text(
-                                  '${runMode.name.toUpperCase()} MODE',
-                                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(width: 5),
-                              Expanded(
-                                child: isMobile
-                                    ? SizedBox()
-                                    : Text(
-                                        runMode == RunMode.dev
-                                            ? 'You\'re using development mode — your place to experiment with Cariqa Connect'
-                                            : 'You\'re using production mode. Real data will be used.',
-                                        style: TextStyle(fontSize: 14),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: runMode.colorPrimary,
+                                        borderRadius: BorderRadius.circular(4),
                                       ),
+                                      child: Text(
+                                        runMode.name.toUpperCase(),
+                                        style:
+                                            TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    isMobile
+                                        ? SizedBox()
+                                        : Text(
+                                            runMode == RunMode.dev
+                                                ? 'You\'re using development mode — your place to experiment with Cariqa Connect.'
+                                                : 'You\'re using production mode. Real data will be used.',
+                                            style: TextStyle(fontSize: 14),
+                                          )
+                                  ],
+                                ),
                               ),
-                            ] else
-                              Spacer(),
+                            Spacer(),
                             ThemeButton(),
                             SizedBox(width: 40),
                           ],
@@ -240,7 +248,7 @@ AppThemeExtensions lightThemeExtensions = AppThemeExtensions(
 
 AppThemeExtensions darkThemeExtensions = AppThemeExtensions(
   secondaryColor: Color(0xFFF1F1F1),
-  menuUnselectedText: Color(0xFF98969B),
+  menuUnselectedText: Color(0xFFFFFFFF),
   tooltipBg: Color(0xFFFFFFFF),
   magicWand: Color(0xFFB2A4F8),
   moduleHeader: Color(0xFF222222),

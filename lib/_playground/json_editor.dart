@@ -45,12 +45,16 @@ class _JsonEditorState extends State<JsonEditor> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 10),
-          _SyntaxText("{", color: context.ext.jsonValue),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: _buildMap(_data),
-          ),
-          _SyntaxText("}", color: context.ext.jsonValue),
+          if (_data.isEmpty)
+            _SyntaxText("{}", color: context.ext.jsonValue)
+          else ...[
+            _SyntaxText("{", color: context.ext.jsonValue),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: _buildMap(_data),
+            ),
+            _SyntaxText("}", color: context.ext.jsonValue),
+          ],
         ],
       ),
     );

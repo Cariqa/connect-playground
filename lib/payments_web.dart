@@ -1,10 +1,11 @@
 import 'package:connect_reference_client/_playground/reusable_widgets.dart';
 import 'package:connect_reference_client/_playground/util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_stripe_web/flutter_stripe_web.dart';
 
-void addPaymentMethod(BuildContext context, String setupIntentClientSecret) {
+// Client-side payment method addition (Flutter equivalent of the native Web library)
+// https://docs.cariqa.com/payments-frontend-setup#-web-cards-+-google-pay
+void addPaymentMethodWeb(BuildContext context, String setupIntentClientSecret) {
   showDialog(
     context: context,
     builder: (_) => UiPanel(
@@ -38,17 +39,15 @@ void addPaymentMethod(BuildContext context, String setupIntentClientSecret) {
   );
 }
 
-Future<void> confirmPayment({required String paymentIntentClientSecret, required String paymentMethodId}) async {
-  await Stripe.instance.confirmPayment(
-    paymentIntentClientSecret: paymentIntentClientSecret,
-    data: PaymentMethodParams.cardFromMethodId(
+// Client-side payment confirmation (Flutter equivalent of the native Web library)
+// https://docs.cariqa.com/patterns-payments-outstanding#client-side-payment-confirmation
+Future<void> confirmPaymentWeb({required String paymentIntentClientSecret, required String paymentMethodId}) async {
+  await WebStripe.instance.confirmPayment(
+    paymentIntentClientSecret,
+    PaymentMethodParams.cardFromMethodId(
       paymentMethodData: PaymentMethodDataCardFromMethod(
         paymentMethodId: paymentMethodId,
       ),
     ),
   );
 }
-
-// On web there is no separation between iOS and Android, so we just use [addPaymentMethod()] from above.
-Future<void> addIosPaymentMethod(BuildContext context, String setupIntentClientSecret) async {}
-Future<void> addAndroidPaymentMethod(BuildContext context, String setupIntentClientSecret) async {}

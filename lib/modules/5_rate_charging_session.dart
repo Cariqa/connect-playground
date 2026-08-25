@@ -5,40 +5,32 @@ import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class AddBillingDetails extends StatefulWidget {
-  const AddBillingDetails({super.key});
+class RateChargingSession extends StatefulWidget {
+  const RateChargingSession({super.key});
 
   @override
-  State<AddBillingDetails> createState() => _AddBillingDetailsState();
+  State<RateChargingSession> createState() => _RateChargingSessionState();
 }
 
-class _AddBillingDetailsState extends State<AddBillingDetails> {
+class _RateChargingSessionState extends State<RateChargingSession> {
   @override
   Widget build(BuildContext context) {
-    final url = '/users/$userId/billing-details/';
+    final url = '/users/$userId/charging-sessions/$sessionId/';
     return ModuleWidget(
       urlName: url,
-      apiType: ApiType.put,
+      apiType: ApiType.patch,
       reqType: ReqType.body,
       pathParams: () => {
         'userId': '',
+        'sessionId': '',
       },
       requestParams: () => {
-        "country": "DE",
-        "line1": "Berliner Str. 123",
-        "postal_code": "10119",
-        "city": "Berlin",
-        "account_type": "personal",
-        "company_name": "",
-        "vat_id": "",
-        "tax_id": "",
-        "first_name": "Max",
-        "last_name": "Mustermann",
+        'rates': '5',
       },
-      getApiClient: (apiClient, params) async {
-        await apiClient.put(
+      getApiClient: (apiClient, requestParams) async {
+        await apiClient.patch(
           url: url,
-          body: jsonEncode(params),
+          body: jsonEncode(requestParams),
           addHeaders: authorizationBearerConnectTokenHeader,
         );
       },
@@ -49,6 +41,9 @@ class _AddBillingDetailsState extends State<AddBillingDetails> {
   void _playgroundEditorPathChange(Map<String, dynamic> pathParams) {
     final newPathUser = pathParams['userId'] ?? '';
     if (newPathUser != '') userId = newPathUser;
+
+    final newSessionId = pathParams['sessionId'] ?? '';
+    if (newSessionId != '') sessionId = newSessionId;
     setState(() {});
   }
 }

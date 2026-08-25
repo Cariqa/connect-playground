@@ -3,35 +3,29 @@ import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class GetInvoices extends StatefulWidget {
-  const GetInvoices({super.key});
+class GetUser extends StatefulWidget {
+  const GetUser({super.key});
 
   @override
-  State<GetInvoices> createState() => _GetInvoicesState();
+  State<GetUser> createState() => _GetUserState();
 }
 
-class _GetInvoicesState extends State<GetInvoices> {
+class _GetUserState extends State<GetUser> {
   @override
   Widget build(BuildContext context) {
-    final url = '/users/$userId/invoices/';
+    final url = '/users/$userId/';
     return ModuleWidget(
       urlName: url,
       apiType: ApiType.get,
       pathParams: () => {
         'userId': '',
       },
-      requestParams: () => {
-        "page_size": "10",
-        "page": "1",
-      },
-      getApiClient: (apiClient, params) async {
+      requestParams: () => {},
+      getApiClient: (apiClient, requestParams) async {
         await apiClient.get(
           url: url,
-          params: params,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
-
-        setState(() {});
       },
       onPathChange: _playgroundEditorPathChange,
     );

@@ -2,23 +2,39 @@ import 'dart:ui';
 
 import 'package:connect_reference_client/main.dart';
 
+enum AppChapter {
+  user,
+  payment,
+  billing,
+  stations,
+  charging,
+  invoices,
+  debt,
+}
+
 enum AppTab {
   none,
   createUser,
   addPaymentMethod,
-  addBillingDetails,
+  setPaymentMethodDefault,
+  updateBillingDetails,
+  getBillingDetails,
   getPaymentMethods,
   deletePaymentMethod,
   getStationsTiles,
   getStationsList,
   getStationDetails,
+  getPartnersList,
   startCharging,
   getChargingSession,
   stopCharging,
   getAllChargingSessions,
   getUnpaidSessions,
   getInvoices,
+  getUser,
+  updateUser,
   getAllUsers,
+  softDeleteUser,
   rateChargingSession;
 }
 

@@ -1,36 +1,30 @@
-import 'dart:convert';
-
 import 'package:connect_reference_client/_playground/models.dart';
 import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
 import 'package:flutter/material.dart';
 
-class RateChargingSession extends StatefulWidget {
-  const RateChargingSession({super.key});
+class GetChargingSession extends StatefulWidget {
+  const GetChargingSession({super.key});
 
   @override
-  State<RateChargingSession> createState() => _RateChargingSessionState();
+  State<GetChargingSession> createState() => _GetChargingSessionState();
 }
 
-class _RateChargingSessionState extends State<RateChargingSession> {
+class _GetChargingSessionState extends State<GetChargingSession> {
   @override
   Widget build(BuildContext context) {
     final url = '/users/$userId/charging-sessions/$sessionId/';
     return ModuleWidget(
       urlName: url,
-      apiType: ApiType.patch,
-      reqType: ReqType.body,
+      apiType: ApiType.get,
       pathParams: () => {
         'userId': '',
         'sessionId': '',
       },
-      requestParams: () => {
-        'rates': '5',
-      },
-      getApiClient: (apiClient, params) async {
-        await apiClient.patch(
+      requestParams: () => {},
+      getApiClient: (apiClient, requestParams) async {
+        await apiClient.get(
           url: url,
-          body: jsonEncode(params),
           addHeaders: authorizationBearerConnectTokenHeader,
         );
       },

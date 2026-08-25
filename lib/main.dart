@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connect_reference_client/_playground/all_menu_widget.dart';
 import 'package:connect_reference_client/_playground/credentials_page.dart';
 import 'package:connect_reference_client/_playground/cubits.dart';
@@ -49,3 +51,6 @@ const devUrl = 'dev.connect.cariqa.com/api/v1';
 const prodUrl = 'connect.cariqa.com/api/v1';
 
 const docsUrl = 'https://docs.cariqa.com';
+
+final isMobileIos = kIsWeb == false && Platform.isIOS;
+final isMobileAndroid = kIsWeb == false && Platform.isAndroid;

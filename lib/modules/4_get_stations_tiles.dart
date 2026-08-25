@@ -42,10 +42,10 @@ class _GetStationsTilesState extends State<GetStationsTiles> {
       },
       updateQueryParams: queryParamsController,
       moduleController: moduleController,
-      getApiClient: (apiClient, params) async {
+      getApiClient: (apiClient, requestParams) async {
         final response = await apiClient.get(
           url: url,
-          params: params,
+          params: requestParams,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
 
@@ -61,7 +61,7 @@ class _GetStationsTilesState extends State<GetStationsTiles> {
           initializedMap = true;
           return _GoogleMapWidget(
             pins: tiles.map((e) => e as Map<String, dynamic>).toList(),
-            initialCameraPosition: LatLng(52.51760102306344, 13.416584931274418),
+            initialCameraPosition: LatLng(52.50382758151331, 13.438812676017786),
             onCameraMove: (tile) {
               queryParamsController.value = {
                 'x': [tile.x.toString()],

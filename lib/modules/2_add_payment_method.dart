@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:connect_reference_client/_playground/models.dart';
 import 'package:connect_reference_client/_playground/module_widget.dart';
 import 'package:connect_reference_client/main.dart';
-import 'package:connect_reference_client/payments_mobile.dart'
-    if (dart.library.js) 'package:connect_reference_client/payments_web.dart' as MOBILE_or_WEB_PAYMENTS;
+import 'package:connect_reference_client/payments_android.dart';
+import 'package:connect_reference_client/payments_ios.dart';
+import 'package:connect_reference_client/payments_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -29,24 +28,26 @@ class _AddPaymentMethodState extends State<AddPaymentMethod> {
       requestParams: () => {
         'pm_type': 'card',
       },
-      getApiClient: (apiClient, params) async {
+      getApiClient: (apiClient, requestParams) async {
         final res = await apiClient.get(
           url: url,
-          params: params,
+          params: requestParams,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
 
         // Web:
         if (kIsWeb) {
-          MOBILE_or_WEB_PAYMENTS.addPaymentMethod(context, res['setup_intent_client_secret']);
+          addPaymentMethodWeb(context, res['setup_intent_client_secret']);
         }
 
-        // Mobile:
-        if (kIsWeb == false && Platform.isIOS) {
-          MOBILE_or_WEB_PAYMENTS.addIosPaymentMethod(context, res['setup_intent_client_secret']);
+        // iOS:
+        if (isMobileIos) {
+          addIosPaymentMethod(context, res['setup_intent_client_secret']);
         }
-        if (kIsWeb == false && Platform.isAndroid) {
-          MOBILE_or_WEB_PAYMENTS.addAndroidPaymentMethod(context, res['setup_intent_client_secret']);
+
+        // Android
+        if (isMobileAndroid) {
+          addAndroidPaymentMethod(context, res['setup_intent_client_secret']);
         }
       },
       onPathChange: _playgroundEditorPathChange,

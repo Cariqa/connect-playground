@@ -25,7 +25,7 @@ class _GetUnpaidSessionsState extends State<GetUnpaidSessions> {
         'page_size': '20',
         'page': '1',
       },
-      getApiClient: (apiClient, params) async {
+      getApiClient: (apiClient, requestParams) async {
         final res = await apiClient.get(
           url: url,
           addHeaders: authorizationBearerConnectTokenHeader,

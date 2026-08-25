@@ -16,10 +16,10 @@ class GetStationDetails extends StatelessWidget {
         'id': '',
         'type': 'station_id',
       },
-      getApiClient: (apiClient, params) async {
+      getApiClient: (apiClient, requestParams) async {
         final res = await apiClient.get(
           url: url,
-          params: params,
+          params: requestParams,
           addHeaders: authorizationBearerConnectTokenHeader,
         );
 
